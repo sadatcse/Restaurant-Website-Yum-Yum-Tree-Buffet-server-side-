@@ -39,6 +39,15 @@ async function run() {
       res.send(result);
   })
 
+  app.post('/users', async (req, res) => {
+    const newuser =req.body;
+    console.log(newmenus);
+    const result =await userCollection.insertOne(newuser);
+    res.send(result);
+  })
+
+
+
     app.post('/menus', async (req, res) => {
       const newmenus =req.body;
       console.log(newmenus);
