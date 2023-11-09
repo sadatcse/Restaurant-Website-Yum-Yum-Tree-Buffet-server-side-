@@ -26,12 +26,33 @@ async function run() {
     await client.connect();
     const menuCollection = client.db('Restu').collection('Menu');
     const userCollection = client.db('Restu').collection('User');
+    const cartCollection = client.db('Restu').collection('cart');
 
     app.get('/menus', async (req, res) => {
         const cursor = menuCollection.find();
         const result = await cursor.toArray();
         res.send(result);
     })
+
+    app.get('/carts', async (req, res) => {
+      const cursor = cartCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+  })
+
+  app.post('/carts', async (req, res) => {
+    const newcart =req.body;
+    console.log(newcart);
+    const result =await cartCollection.insertOne(newcart);
+    res.send(result);
+  })
+
+  app.delete('/carts/:id', async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) }
+    const result = await cartCollection.deleteOne(query);
+    res.send(result);
+})
 
     app.get('/users', async (req, res) => {
       const cursor = userCollection.find();
