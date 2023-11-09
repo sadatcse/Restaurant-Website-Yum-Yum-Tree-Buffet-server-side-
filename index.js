@@ -99,14 +99,16 @@ async function run() {
       const cursor = menuCollection.find().sort({ order_count: -1 }); 
       const result = await cursor.toArray();
       res.send(result);
+
   })
 
-  app.get('/menusc/:category', async (req, res) => {
+  app.get('/menuscat/:category', async (req, res) => {
     const Category = req.params.category;
     const query = { "Food_category": Category };
     const cursor = menuCollection.find(query);
     const result = await cursor.toArray();
     res.send(result);
+
 });
 
 app.get('/menusearch/:name', async (req, res) => {
