@@ -102,7 +102,7 @@ async function run() {
 
   })
 
-  app.get('/menuscat/:category', async (req, res) => {
+  app.get('/menusc/:category', async (req, res) => {
     const Category = req.params.category;
     const query = { "Food_category": Category };
     const cursor = menuCollection.find(query);
@@ -111,7 +111,7 @@ async function run() {
 
 });
 
-app.get('/menusearch/:name', async (req, res) => {
+app.get('/menusearch-/:name', async (req, res) => {
   const name = req.params.name;
   const query = { "Food_name": { $regex: name, $options: 'i' } };
 
