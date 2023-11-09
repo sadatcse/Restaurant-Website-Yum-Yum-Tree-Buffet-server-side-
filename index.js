@@ -111,7 +111,7 @@ async function run() {
 
 });
 
-app.get('/menusearch-/:name', async (req, res) => {
+app.get('/menusearch/:name', async (req, res) => {
   const name = req.params.name;
   const query = { "Food_name": { $regex: name, $options: 'i' } };
 
