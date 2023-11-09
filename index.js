@@ -102,6 +102,11 @@ async function run() {
 
   })
 
+  app.get('/menusCount', async (req, res) => {
+    const count = await menuCollection.estimatedDocumentCount();
+    res.send({ count });
+  })
+
   app.get('/menusc/:category', async (req, res) => {
     const Category = req.params.category;
     const query = { "Food_category": Category };
@@ -113,11 +118,17 @@ async function run() {
 
 app.get('/menusearch/:name', async (req, res) => {
   const name = req.params.name;
-  const query = { "Food_name": { $regex: name, $options: 'i' } };
 
-  const cursor = menuCollection.find(query);
-  const result = await cursor.toArray();
-  res.send(result);
+  if (name === 'all') {
+    const cursor = menuCollection.find({});
+    const result = await cursor.toArray();
+    res.send(result);
+  } else {
+    const query = { "Food_name": { $regex: name, $options: 'i' } };
+    const cursor = menuCollection.find(query);
+    const result = await cursor.toArray();
+    res.send(result);
+  }
 });
 
 
